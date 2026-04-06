@@ -28,11 +28,11 @@ docker-build:
 
 # Start with Docker Compose
 docker-up:
-	@docker-compose up --build
+	@docker compose up --build
 
 # Stop Docker Compose
 docker-down:
-	@docker-compose down
+	@docker compose down
 
 # Clean build artifacts
 clean:

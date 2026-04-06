@@ -107,7 +107,7 @@ This will:
 
 3. **Or use Docker Compose directly**
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 ### Environment Variables

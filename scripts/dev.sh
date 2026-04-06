@@ -29,7 +29,7 @@ fi
 
 # Start infrastructure
 echo -e "${GREEN}Starting MongoDB and Redis...${NC}"
-docker-compose up -d mongo redis
+docker compose up -d mongo redis
 
 # Wait for services to be ready
 echo -e "${YELLOW}Waiting for services...${NC}"
