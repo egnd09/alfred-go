@@ -36,15 +36,24 @@ echo -e "${YELLOW}Waiting for services...${NC}"
 sleep 3
 
 # Check if go is installed
-if ! command -v go &> /dev/null; then
-    echo -e "${RED}Go is not installed. Please install Go 1.21+${NC}"
-    exit 1
+if command -v go &> /dev/null; then
+    echo -e "${GREEN}Go found, running locally...${NC}"
+    
+    # Download dependencies
+    echo -e "${GREEN}Downloading Go dependencies...${NC}"
+    go mod tidy
+    go mod download
+    
+    # Run the server
+    echo -e "${GREEN}Starting Alfred server on port ${SERVICE_PORT}...${NC}"
+    go run ./cmd/server
+else
+    echo -e "${YELLOW}Go not found, using Docker...${NC}"
+    
+    # Build and run with Docker
+    echo -e "${GREEN}Building Docker image...${NC}"
+    docker compose build server
+    
+    echo -e "${GREEN}Starting Alfred server...${NC}"
+    docker compose up server
 fi
-
-# Download dependencies
-echo -e "${GREEN}Downloading Go dependencies...${NC}"
-go mod download
-
-# Run the server
-echo -e "${GREEN}Starting Alfred server on port ${SERVICE_PORT}...${NC}"
-go run ./cmd/server
